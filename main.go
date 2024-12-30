@@ -16,10 +16,15 @@ type MethodData struct {
 }
 
 type InterfaceData struct {
-	Namespace string
 	Includes  []string
+	Namespace string
 	Interface string
 	Methods   []MethodData
+}
+
+type TemplateData struct {
+	Includes   []string
+	Interfaces []InterfaceData
 }
 
 //go:embed template.templ
@@ -39,7 +44,9 @@ func main() {
 		return
 	}
 	var output bytes.Buffer
-	err = tmpl.Execute(&output, interfaceData)
+
+	templateData := TemplateData{interfaceData[0].Includes, interfaceData}
+	err = tmpl.Execute(&output, templateData)
 	if err != nil {
 		fmt.Println("Error executing template:", err)
 		return

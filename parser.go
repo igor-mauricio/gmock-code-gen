@@ -28,33 +28,40 @@ func parseNamespace(content string) string {
 	return namespace
 }
 
-func parseInterfaceData(content string) InterfaceData {
+func parseInterfaceData(content string) []InterfaceData {
 	cleanedContent := cleanContent(content)
 	namespace := parseNamespace(cleanedContent)
 	singleLine := strings.ReplaceAll(cleanedContent, "\n", "")
 	classRe := regexp.MustCompile(`class\s+(\w+)\s*.*?{\s*.*?public:\s*(.*?)\s*};`)
-	classMatch := classRe.FindStringSubmatch(singleLine)
-	if len(classMatch) == 0 {
+	classesMatch := classRe.FindAllStringSubmatch(singleLine, -1)
+	if len(classesMatch) == 0 {
 		fmt.Println("No class definition found")
-		return InterfaceData{}
+		return []InterfaceData{}
 	}
-	interfaceName := classMatch[1]
-	methodsStr := classMatch[2]
-	methodsRe := regexp.MustCompile(`virtual\s+(.*?)\s+(\w+)\s*\(\s*(.*?)\s*\)\s*(\w*)\s*=\s*0\s*;`)
-	methodMatches := methodsRe.FindAllStringSubmatch(methodsStr, -1)
-	var methods []MethodData
-	for _, match := range methodMatches {
-		methods = append(methods, MethodData{
-			Type:       match[1],
-			Name:       match[2],
-			Parameters: "(" + match[3] + ")",
-			Const:      match[4] == "const",
+
+	var interfacesData []InterfaceData
+
+	for _, classMatch := range classesMatch {
+		interfaceName := classMatch[1]
+		methodsStr := classMatch[2]
+		methodsRe := regexp.MustCompile(`virtual\s+(.*?)\s+(\w+)\s*\(\s*(.*?)\s*\)\s*(\w*)\s*=\s*0\s*;`)
+		methodMatches := methodsRe.FindAllStringSubmatch(methodsStr, -1)
+		var methods []MethodData
+		for _, match := range methodMatches {
+			methods = append(methods, MethodData{
+				Type:       match[1],
+				Name:       match[2],
+				Parameters: "(" + match[3] + ")",
+				Const:      match[4] == "const",
+			})
+		}
+		interfacesData = append(interfacesData, InterfaceData{
+			Namespace: namespace,
+			Includes:  []string{"target.h", "gmock/gmock.h"},
+			Interface: interfaceName,
+			Methods:   methods,
 		})
+
 	}
-	return InterfaceData{
-		Namespace: namespace,
-		Includes:  []string{"target.h", "gmock/gmock.h"},
-		Interface: interfaceName,
-		Methods:   methods,
-	}
+	return interfacesData
 }

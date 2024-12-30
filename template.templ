@@ -4,6 +4,8 @@
 #include <{{.}}>
 {{ end -}}
 
+{{ range .Interfaces -}}
+
 {{if .Namespace}}
 namespace {{.Namespace}} { 
     class Mock{{.Interface}} : public {{.Interface}} {
@@ -21,3 +23,5 @@ public:
     {{end}}
 };
 {{end}}
+
+{{- end}}
