@@ -1,0 +1,23 @@
+/* This code was generated. DO NOT EDIT */
+
+{{ range .Includes -}}
+#include <{{.}}>
+{{ end -}}
+
+{{if .Namespace}}
+namespace {{.Namespace}} { 
+    class Mock{{.Interface}} : public {{.Interface}} {
+    public:
+        {{ range .Methods -}}
+        MOCK_METHOD({{.Type}}, {{.Name}}, {{.Parameters}}, ({{- if .Const }}const, {{end}}override));
+        {{end}}
+    };
+}
+{{else}}
+class Mock{{.Interface}} : public {{.Interface}} {
+public:
+    {{ range .Methods -}}
+    MOCK_METHOD({{.Type}}, {{.Name}}, {{.Parameters}}, ({{- if .Const }}const, {{end}}override));
+    {{end}}
+};
+{{end}}
