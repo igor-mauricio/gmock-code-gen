@@ -3,6 +3,7 @@
 namespace machine{
     class I2C{
     public:
+        virtual ~I2C() = default;
         virtual void beginTransmission(int address) = 0;
         virtual void write(int data) = 0;
         virtual void endTransmission() = 0;
