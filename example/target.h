@@ -40,6 +40,6 @@ namespace machine{
         void vrau(int data);
         void grau();
         void mrau(int address, int quantity);
-        virtual int errr();
+        virtual int errr() = 0;
     };
 }
