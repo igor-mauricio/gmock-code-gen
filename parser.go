@@ -46,6 +46,10 @@ func parseInterfaceData(content string) []InterfaceData {
 		methodsStr := classMatch[2]
 		methodsRe := regexp.MustCompile(`virtual\s+(.*?)\s+(\w+)\s*\(\s*(.*?)\s*\)\s*(\w*)\s*=\s*0\s*;`)
 		methodMatches := methodsRe.FindAllStringSubmatch(methodsStr, -1)
+		if len(methodMatches) == 0 {
+			fmt.Println("No pure virtual functions found at class", interfaceName)
+			continue
+		}
 		var methods []MethodData
 		for _, match := range methodMatches {
 			methods = append(methods, MethodData{

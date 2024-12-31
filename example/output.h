@@ -15,3 +15,24 @@ namespace machine {
         
     };
 }
+
+namespace machine { 
+    class MockObama : public Obama {
+    public:
+        MOCK_METHOD(void, ahoy, (int address), (override));
+        MOCK_METHOD(void, asd, (int data), (override));
+        MOCK_METHOD(void, err, (), (override));
+        MOCK_METHOD(void, asdxcxz, (int address, int quantity), (override));
+        MOCK_METHOD(int, blau, (), (override));
+        MOCK_METHOD(int, errr, (), (override));
+        
+    };
+}
+
+namespace machine { 
+    class MockThisIsMixed : public ThisIsMixed {
+    public:
+        MOCK_METHOD(void, blau, (int address), (override));
+        
+    };
+}

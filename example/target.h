@@ -23,4 +23,23 @@ namespace machine{
         virtual int blau() = 0;
         virtual int errr() = 0;
     };
+
+    class ThisIsNotAnVirtualInterface{
+    public:
+        void ahoy(int address);
+        void asd(int data);
+        void err();
+        void asdxcxz(int address, int quantity);
+        int myvirtualboy();
+        int errr();
+    };
+
+    class ThisIsMixed{
+    public:
+        virtual void blau(int address) = 0;
+        void vrau(int data);
+        void grau();
+        void mrau(int address, int quantity);
+        virtual int errr();
+    };
 }
