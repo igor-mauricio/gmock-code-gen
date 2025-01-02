@@ -8,7 +8,7 @@
 
 {{if .Namespace}}
 namespace {{.Namespace}} { 
-    class Mock{{.Interface}} : public {{.Interface}} {
+    class {{.Interface}}Mock : public {{.Interface}} {
     public:
         {{ range .Methods -}}
         MOCK_METHOD({{.Type}}, {{.Name}}, {{.Parameters}}, ({{- if .Const }}const, {{end}}override));
@@ -16,7 +16,7 @@ namespace {{.Namespace}} {
     };
 }
 {{else}}
-class Mock{{.Interface}} : public {{.Interface}} {
+class {{.Interface}}Mock : public {{.Interface}} {
 public:
     {{ range .Methods -}}
     MOCK_METHOD({{.Type}}, {{.Name}}, {{.Parameters}}, ({{- if .Const }}const, {{end}}override));

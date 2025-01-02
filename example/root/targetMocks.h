@@ -4,7 +4,7 @@
 #include <gmock/gmock.h>
 
 namespace machine { 
-    class MockI2C : public I2C {
+    class I2CMock : public I2C {
     public:
         MOCK_METHOD(void, beginTransmission, (int address), (override));
         MOCK_METHOD(void, write, (int data), (override));
@@ -17,7 +17,7 @@ namespace machine {
 }
 
 namespace machine { 
-    class MockObama : public Obama {
+    class ObamaMock : public Obama {
     public:
         MOCK_METHOD(void, ahoy, (int address), (override));
         MOCK_METHOD(void, asd, (int data), (override));
@@ -30,7 +30,7 @@ namespace machine {
 }
 
 namespace machine { 
-    class MockThisIsMixed : public ThisIsMixed {
+    class ThisIsMixedMock : public ThisIsMixed {
     public:
         MOCK_METHOD(void, blau, (int address), (override));
         MOCK_METHOD(int, errr, (), (override));

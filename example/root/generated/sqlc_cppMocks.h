@@ -4,7 +4,7 @@
 #include <gmock/gmock.h>
 
 namespace repo { 
-    class MockRepository : public Repository {
+    class RepositoryMock : public Repository {
     public:
         MOCK_METHOD(void, open, (std::string filename), (override));
         MOCK_METHOD(std::vector<getReplyIdsParams>, getReplyIds, (int parent_id), (override));

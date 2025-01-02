@@ -3,7 +3,7 @@
 #include <to/itsMeMario.h>
 #include <gmock/gmock.h>
 
-class MockMario : public Mario {
+class MarioMock : public Mario {
 public:
     MOCK_METHOD(void, jump, (int height), (override));
     MOCK_METHOD(void, run, (int speed), (override));
