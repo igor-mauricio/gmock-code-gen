@@ -33,6 +33,7 @@ namespace machine {
     class MockThisIsMixed : public ThisIsMixed {
     public:
         MOCK_METHOD(void, blau, (int address), (override));
+        MOCK_METHOD(int, errr, (), (override));
         
     };
 }

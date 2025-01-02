@@ -52,10 +52,12 @@ func parseInterfaceData(content string) []InterfaceData {
 		}
 		var methods []MethodData
 		for _, match := range methodMatches {
+			parameters := strings.TrimSpace(match[3])
+			parameters = regexp.MustCompile(`\s+`).ReplaceAllString(parameters, " ")
 			methods = append(methods, MethodData{
 				Type:       match[1],
 				Name:       match[2],
-				Parameters: "(" + match[3] + ")",
+				Parameters: "(" + parameters + ")",
 				Const:      match[4] == "const",
 			})
 		}

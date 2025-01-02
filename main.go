@@ -34,11 +34,15 @@ var templateFile string
 
 func main() {
 	targetDir := os.Args[1]
+
 	err := filepath.Walk(targetDir, func(path string, info os.FileInfo, err error) error {
 		if err != nil {
 			return err
 		}
 		if !info.IsDir() && (filepath.Ext(path) == ".h" || filepath.Ext(path) == ".hpp") {
+			if path == targetDir {
+				targetDir = filepath.Dir(path)
+			}
 			err := processFile(path, targetDir)
 			if err != nil {
 				fmt.Println("Error processing file:", err)
