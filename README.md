@@ -18,7 +18,7 @@ gmock-code-gen <path/to/the/root/folder>
 ## How it works
 
 
-### Expected source file structure
+### Source file structure
 
 Each header file should contain one or more classes to be mocked. It will generate mocks for files that contains classes with at least one pure virtual method.
 For google mock to work, the interface to be mocked *must* have a virtual destructor.
@@ -38,7 +38,7 @@ public:
 
 ```
 
-### Expected generated output
+### Generated output
 
 ##### myClassMocks.h
 
